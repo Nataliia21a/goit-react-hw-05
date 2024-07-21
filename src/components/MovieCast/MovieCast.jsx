@@ -8,6 +8,9 @@ export default function MovieCast() {
 
   const [castFilm, setCastFilm] = useState([]);
 
+  const defaultImg =
+    "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
+
   useEffect(() => {
     async function fetchCastFilm() {
       const data = await getCastFilm(movieId);
@@ -17,12 +20,16 @@ export default function MovieCast() {
   }, [movieId]);
 
   return (
-    <ul>
+    <ul className={css.castList}>
       {castFilm.map((castItem) => (
-        <li key={castItem.cast_id}>
+        <li className={css.castItem} key={castItem.cast_id}>
           <img
             className={css.castImg}
-            src={`https://image.tmdb.org/t/p/w500${castItem.profile_path}`}
+            src={
+              castItem.profile_path
+                ? `https://image.tmdb.org/t/p/w500${castItem.profile_path}`
+                : defaultImg
+            }
             alt={castItem.name}
           />
           <h4>{castItem.name}</h4>

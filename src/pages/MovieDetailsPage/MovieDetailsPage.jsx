@@ -1,29 +1,67 @@
-import { NavLink, useParams, Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {
+  NavLink,
+  Link,
+  useParams,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
+import { Oval } from "react-loader-spinner";
+import { useEffect, useRef, useState } from "react";
 import { getDetailsFilm } from "../../films-api";
 import css from "../../pages/MovieDetailsPage/MovieDetailsPage.module.css";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
-
+  const [error, setError] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [filmDetails, setFilmDetails] = useState(null);
+
+  const defaultImg =
+    "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
 
   useEffect(() => {
     async function fetchDetailsFilm() {
-      const data = await getDetailsFilm(movieId);
-      setFilmDetails(data);
+      try {
+        setLoader(true);
+        setError(false);
+        const data = await getDetailsFilm(movieId);
+        setFilmDetails(data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoader(false);
+      }
     }
     fetchDetailsFilm();
   }, [movieId]);
 
+  const location = useLocation();
+
+  const urlBackLinkRef = useRef(location.state ?? "/movies");
+
   return (
     <div>
-      <button>Go back</button>
+      <Link to={urlBackLinkRef.current}>Go back</Link>
+      {loader && (
+        <Oval
+          visible={true}
+          height="80"
+          width="80"
+          color="rgb(1, 1, 242)"
+          ariaLabel="oval-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      )}
       {filmDetails && (
         <div>
           <img
             className={css.filmPoster}
-            src={`https://image.tmdb.org/t/p/w500${filmDetails.poster_path}`}
+            src={
+              filmDetails.poster_path
+                ? `https://image.tmdb.org/t/p/w500${filmDetails.poster_path}`
+                : defaultImg
+            }
             alt={filmDetails.title}
           />
           <h3>{filmDetails.title}</h3>
@@ -46,6 +84,7 @@ export default function MovieDetailsPage() {
         </li>
       </ul>
       <Outlet />
+      {error && <p>Oh! There was an error, please reload the page...</p>}
     </div>
   );
 }

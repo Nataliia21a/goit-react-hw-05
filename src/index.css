@@ -59,9 +59,9 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+/* button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid darkblue;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -69,14 +69,14 @@ button {
   background-color: lightgray;
   cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
+} */
+/* button:hover {
   border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 header {
   width: 100%;

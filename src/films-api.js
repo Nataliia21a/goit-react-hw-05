@@ -31,3 +31,10 @@ export const getReviewsFilm = async (movieId) => {
   );
   return response.data;
 };
+
+export const getSearchFilms = async (ownerSearch) => {
+  const response = await axios.get(
+    `/search/movie?include_adult=false&query=${ownerSearch}&language=en-US&api_key=${KEY}&page=1`
+  );
+  return response.data;
+};

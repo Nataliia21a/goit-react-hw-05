@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  gap: 10px;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+.inputSearch {
+  height: 24px;
+  width: 340px;
+  padding: 8px 10px;
+  border: 2px solid #747bff;
+  border-radius: 10px;
+  font-size: 16px;
+  color: darkblue;
+}
+
+.button {
+  border-radius: 10px;
+  border: 2px solid #747bff;
+  font-size: 20px;
+  color: darkblue;
+}
+
+.inputSearch:hover,
+.button:hover {
+  border: 2px solid darkblue;
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getTrendingFilms } from "../films-api";
+import MovieList from "../components/MovieList/MovieList";
 
 export default function HomePage() {
   const [films, setFilms] = useState([]);
@@ -20,13 +21,14 @@ export default function HomePage() {
   return (
     <>
       <h1>Trending today</h1>
-      <ul>
+      {/* <ul>
         {films.map(({ original_title, id }) => (
           <li key={id}>
             <Link to={`/movies/${id}`}>{original_title}</Link>
           </li>
         ))}
-      </ul>
+      </ul> */}
+      {films.length > 0 && <MovieList films={films} />}
     </>
   );
 }
